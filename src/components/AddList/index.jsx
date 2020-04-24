@@ -5,7 +5,7 @@ import Badge from "../Badge";
 import "./AddList.scss";
 import closeSvg from "../../assets/img/close.svg";
 
-const AddList = ({ colors }) => {
+const AddList = ({ colors, onAdd }) => {
   const [
     visiblePopup,
     setVisiblePopup,
@@ -14,6 +14,26 @@ const AddList = ({ colors }) => {
     selectedColor,
     setSelectedColor,
   ] = useState(colors[0].id);
+  const [inputValue, setInputValue] = useState(
+    ""
+  );
+  const addList = () => {
+    if (!inputValue) {
+      alert("enter list name!");
+      return;
+    } else {
+      const color = colors.find(
+        (c) => c.id === selectedColor
+      ).name;
+      onAdd({
+        id: Math.random(),
+        name: inputValue,
+        color,
+      });
+      setInputValue("");
+      setVisiblePopup(false);
+    }
+  };
   return (
     <div className="add-list">
       <List
@@ -36,6 +56,10 @@ const AddList = ({ colors }) => {
           />
           <input
             type="text"
+            value={inputValue}
+            onChange={(e) => {
+              setInputValue(e.target.value);
+            }}
             className="field"
             placeholder="Название категории"
           />
@@ -56,7 +80,12 @@ const AddList = ({ colors }) => {
               </li>
             ))}
           </ul>
-          <button className="button">Add</button>
+          <button
+            onClick={addList}
+            className="button"
+          >
+            Add
+          </button>
         </div>
       )}
     </div>
