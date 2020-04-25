@@ -30,6 +30,25 @@ function App() {
     const newList = [...lists, obj];
     setLists(newList);
   };
+  const onAddTask = (listId, taskObj) => {
+    const newList = lists.map((item) => {
+      if (item.id === listId) {
+        item.tasks = [...item.tasks, taskObj];
+      }
+      return item;
+    });
+    setLists(newList);
+  };
+
+  const onEditListTitle = (id, title) => {
+    const newList = lists.map((item) => {
+      if (item.id === id) {
+        item.name = title;
+      }
+      return item;
+    });
+    setLists(newList);
+  };
   return (
     <div className="wrapper">
       <div className="todo">
@@ -37,6 +56,7 @@ function App() {
           <List
             items={[
               {
+                active: true,
                 icon: (
                   <svg
                     width="14"
@@ -58,9 +78,10 @@ function App() {
           {lists ? (
             <List
               isRemovable
+              activeItem={activeItem}
               items={lists}
               onClickItem={(item) =>
-                console.log(item)
+                setActiveItem(item)
               }
               onRemove={(id) => {
                 const newLists = lists.filter(
@@ -78,7 +99,13 @@ function App() {
           />
         </div>
         <div className="todo__tasks">
-          {lists && <Tasks list={lists[1]} />}
+          {lists && activeItem && (
+            <Tasks
+              list={activeItem}
+              onAddTask={onAddTask}
+              onEditTitle={onEditListTitle}
+            />
+          )}
         </div>
       </div>
     </div>

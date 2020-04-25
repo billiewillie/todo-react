@@ -13,6 +13,7 @@ const List = ({
   click,
   onRemove,
   onClickItem,
+  activeItem,
 }) => {
   const removeList = (item) => {
     if (window.confirm("Delete?")) {
@@ -36,7 +37,9 @@ const List = ({
               : null
           }
           className={classNames(item.className, {
-            active: item.active,
+            active:
+              activeItem &&
+              activeItem.id === item.id,
           })}
         >
           <i>
