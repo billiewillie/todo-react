@@ -52,6 +52,12 @@
         height: 10px;
       }
     }
+    & span {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      width: 120px;
+      white-space: nowrap;
+    }
   }
 
   &:last-child {

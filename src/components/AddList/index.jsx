@@ -90,7 +90,7 @@ const AddList = ({ colors, onAdd }) => {
             {colors.map((color) => (
               <li>
                 <Badge
-                  key={color.name}
+                  key={color.id}
                   color={color.name}
                   onClick={() =>
                     setSelectedColor(color.id)

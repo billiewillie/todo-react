@@ -12,6 +12,9 @@ import {
 function App() {
   const [lists, setLists] = useState(null);
   const [colors, setColors] = useState(null);
+  const [activeItem, setActiveItem] = useState(
+    null
+  );
   useEffect(() => {
     axios
       .get(
@@ -56,6 +59,9 @@ function App() {
             <List
               isRemovable
               items={lists}
+              onClickItem={(item) =>
+                console.log(item)
+              }
               onRemove={(id) => {
                 const newLists = lists.filter(
                   (item) => item.id !== id

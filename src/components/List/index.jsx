@@ -12,6 +12,7 @@ const List = ({
   isRemovable,
   click,
   onRemove,
+  onClickItem,
 }) => {
   const removeList = (item) => {
     if (window.confirm("Delete?")) {
@@ -29,6 +30,11 @@ const List = ({
       {items.map((item) => (
         <li
           key={item.name}
+          onClick={
+            onClickItem
+              ? () => onClickItem(item)
+              : null
+          }
           className={classNames(item.className, {
             active: item.active,
           })}
@@ -40,7 +46,11 @@ const List = ({
               <Badge color={item.color.name} />
             )}
           </i>
-          <span>{item.name}</span>
+          <span>
+            {item.name}
+            {item.tasks &&
+              ` (${item.tasks.length})`}
+          </span>
           {isRemovable && (
             <img
               onClick={() => removeList(item)}
